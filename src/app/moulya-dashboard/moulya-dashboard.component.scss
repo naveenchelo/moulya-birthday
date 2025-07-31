@@ -1,16 +1,28 @@
-// moulya-dashboard.component.scss
+// New Warm Color Palette
+$background-accent: #C88C4A;
+$soft-cream: #F1E7D1;
+$deep-brown: #6E4B2C;
+$warm-orange: #D97B2F;
+$neutral-sand: #E8CFAE;
 
-// Color Palette Variables (adjusted for photo background)
-$glass-white: rgba(255, 255, 255, 0.15);
-$glass-white-hover: rgba(255, 255, 255, 0.25);
-$glass-dark: rgba(0, 0, 0, 0.1);
-$text-primary: #ffffff;
-$text-secondary: rgba(255, 255, 255, 0.9);
-$text-accent: #fff3e0;
-$accent-pink: rgba(255, 111, 97, 0.8);
-$accent-purple: rgba(106, 5, 114, 0.8);
-$accent-mint: rgba(181, 234, 215, 0.8);
-$accent-blue: rgba(162, 210, 255, 0.8);
+// Glass morphism variations with new palette
+$glass-cream: rgba(241, 231, 209, 0.2);
+$glass-cream-hover: rgba(241, 231, 209, 0.35);
+$glass-accent: rgba(200, 140, 74, 0.25);
+$glass-orange: rgba(217, 123, 47, 0.3);
+$glass-sand: rgba(232, 207, 174, 0.25);
+
+// Text colors optimized for warm palette
+$text-primary: #F1E7D1;
+$text-secondary: rgba(241, 231, 209, 0.9);
+$text-accent: #E8CFAE;
+$text-dark: #6E4B2C;
+
+
+// Additional glass effects for better visual hierarchy
+.age-card:hover,
+.message-card:hover // moulya-dashboard.component.scss
+
 
 * {
     margin: 0;
@@ -25,7 +37,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     overflow-x: hidden;
 
     // Background image setup - optimized for all devices
-    background-image: url('/assets/images/photo4.jpeg');
+    background-image: url('/assets/images/photo6.webp');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -107,15 +119,25 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     padding: 20px;
 }
 
-// Glass morphism base styles
-@mixin glass-morphism($blur: 15px, $opacity: 0.15) {
-    background: rgba(255, 255, 255, $opacity);
+// Glass morphism base styles with warm palette
+@mixin glass-morphism($blur: 15px, $opacity: 0.2) {
+    background: rgba(241, 231, 209, $opacity);
     backdrop-filter: blur($blur) saturate(180%);
     -webkit-backdrop-filter: blur($blur) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(200, 140, 74, 0.3);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 8px 32px rgba(110, 75, 44, 0.15),
+        inset 0 1px 0 rgba(241, 231, 209, 0.3);
+}
+
+@mixin glass-morphism-accent($blur: 15px) {
+    background: linear-gradient(135deg, $glass-accent, $glass-cream);
+    backdrop-filter: blur($blur) saturate(180%);
+    -webkit-backdrop-filter: blur($blur) saturate(180%);
+    border: 1px solid rgba(200, 140, 74, 0.4);
+    box-shadow:
+        0 8px 32px rgba(110, 75, 44, 0.2),
+        inset 0 1px 0 rgba(241, 231, 209, 0.4);
 }
 
 @mixin bouncy-hover {
@@ -124,8 +146,9 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     &:hover {
         transform: translateY(-8px) scale(1.02);
         box-shadow:
-            0 15px 40px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            0 15px 40px rgba(110, 75, 44, 0.25),
+            inset 0 1px 0 rgba(241, 231, 209, 0.4);
+        border-color: rgba(200, 140, 74, 0.6);
     }
 }
 
@@ -145,8 +168,8 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     color: $text-primary;
     margin-bottom: 15px;
     font-weight: 800;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(45deg, #fff, #ffeaa7);
+    text-shadow: 2px 2px 8px rgba(110, 75, 44, 0.6);
+    background: linear-gradient(45deg, $soft-cream, $background-accent, $warm-orange);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -158,10 +181,10 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 
 .birthday-date {
     font-size: 1.4rem;
-    color: $text-secondary;
+    color: $text-accent;
     font-weight: 600;
     letter-spacing: 2px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.4);
 }
 
 // Age Section Styles
@@ -171,8 +194,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 }
 
 .main-age {
-    @include glass-morphism(25px, 0.25);
-    background: linear-gradient(135deg, $accent-pink, rgba(255, 111, 97, 0.6));
+    @include glass-morphism-accent(25px);
     margin-bottom: 30px;
     transform: scale(1.05);
     margin-left: auto;
@@ -193,7 +215,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         font-size: 5rem;
         font-weight: 900;
         color: $text-primary;
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        text-shadow: 3px 3px 6px rgba(110, 75, 44, 0.6);
 
         @media (max-width: 768px) {
             font-size: 3.2rem;
@@ -203,10 +225,10 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     .age-label {
         font-size: 1.6rem;
         font-weight: 600;
-        color: $text-accent;
+        color: $neutral-sand;
         text-transform: uppercase;
         letter-spacing: 3px;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.4);
 
         @media (max-width: 768px) {
             font-size: 1.2rem;
@@ -230,18 +252,18 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     @include bouncy-hover;
 
     &:nth-child(1) {
-        border-left: 4px solid $accent-mint;
-        background: linear-gradient(135deg, $glass-white, $accent-mint);
+        border-left: 4px solid $warm-orange;
+        background: linear-gradient(135deg, $glass-cream, $glass-orange);
     }
 
     &:nth-child(2) {
-        border-left: 4px solid $accent-blue;
-        background: linear-gradient(135deg, $glass-white, $accent-blue);
+        border-left: 4px solid $background-accent;
+        background: linear-gradient(135deg, $glass-cream, $glass-accent);
     }
 
     &:nth-child(3) {
-        border-left: 4px solid $accent-pink;
-        background: linear-gradient(135deg, $glass-white, $accent-pink);
+        border-left: 4px solid $neutral-sand;
+        background: linear-gradient(135deg, $glass-cream, $glass-sand);
     }
 }
 
@@ -250,16 +272,16 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     font-weight: 800;
     color: $text-primary;
     margin-bottom: 8px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(110, 75, 44, 0.4);
 }
 
 .stat-label {
     font-size: 1rem;
-    color: $text-secondary;
+    color: $text-accent;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(110, 75, 44, 0.3);
 }
 
 // Messages Section
@@ -274,8 +296,8 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     text-align: center;
     margin-bottom: 40px;
     font-weight: 700;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(45deg, #fff, #ffeaa7, #fab1a0);
+    text-shadow: 2px 2px 8px rgba(110, 75, 44, 0.6);
+    background: linear-gradient(45deg, $soft-cream, $background-accent, $warm-orange);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -292,10 +314,12 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     border-radius: 25px;
     animation: slideInRight 0.8s ease-out;
     @include bouncy-hover;
+    border: 1px solid rgba(200, 140, 74, 0.3);
 
     &:hover {
-        background: rgba(255, 255, 255, 0.25);
+        background: linear-gradient(135deg, $glass-cream-hover, $glass-accent);
         transform: translateX(10px) scale(1.02);
+        border-color: rgba(217, 123, 47, 0.5);
     }
 
     &:nth-child(even) {
@@ -303,6 +327,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 
         &:hover {
             transform: translateX(-10px) scale(1.02);
+            background: linear-gradient(135deg, $glass-cream-hover, $glass-sand);
         }
     }
 
@@ -312,7 +337,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         font-weight: 600;
         line-height: 1.6;
         text-align: center;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.4);
     }
 }
 
@@ -366,8 +391,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 }
 
 .countdown-card {
-    @include glass-morphism(25px, 0.25);
-    background: linear-gradient(135deg, $accent-pink, $accent-purple);
+    @include glass-morphism-accent(25px);
     color: $text-primary;
     padding: 50px;
     border-radius: 30px;
@@ -378,7 +402,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         font-size: 4rem;
         font-weight: 900;
         margin-bottom: 15px;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: 2px 2px 8px rgba(110, 75, 44, 0.4);
     }
 
     .countdown-label {
@@ -386,7 +410,8 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 2px;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.3);
+        color: $neutral-sand;
     }
 }
 
@@ -398,8 +423,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 }
 
 .celebration-card {
-    @include glass-morphism(30px, 0.2);
-    background: linear-gradient(135deg, $accent-pink, $accent-purple);
+    @include glass-morphism-accent(30px);
     color: $text-primary;
     padding: 60px 40px;
     border-radius: 30px;
@@ -409,14 +433,15 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         font-size: 2.5rem;
         margin-bottom: 20px;
         font-weight: 800;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: 2px 2px 8px rgba(110, 75, 44, 0.4);
     }
 
     p {
         font-size: 1.4rem;
         margin-bottom: 25px;
         line-height: 1.6;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.3);
+        color: $neutral-sand;
     }
 }
 
@@ -437,7 +462,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
-    border: 2px solid rgba(162, 210, 255, 0.5);
+    border: 2px solid rgba(217, 123, 47, 0.4);
     @include bouncy-hover;
 
     p {
@@ -445,7 +470,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         color: $text-primary;
         margin-bottom: 20px;
         font-weight: 600;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.4);
     }
 }
 
@@ -460,8 +485,8 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 
     .status-icon {
         font-size: 1.5rem;
-        color: $accent-mint;
-        filter: drop-shadow(0 0 4px rgba(181, 234, 215, 0.8));
+        color: $warm-orange;
+        filter: drop-shadow(0 0 4px rgba(217, 123, 47, 0.8));
     }
 }
 
@@ -480,7 +505,7 @@ $accent-blue: rgba(162, 210, 255, 0.8);
         color: $text-primary;
         font-weight: 600;
         margin-bottom: 15px;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 4px rgba(110, 75, 44, 0.4);
     }
 }
 
@@ -508,16 +533,16 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     0%,
     100% {
         box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            0 0 20px rgba(255, 111, 97, 0.3);
+            0 8px 32px rgba(110, 75, 44, 0.2),
+            inset 0 1px 0 rgba(241, 231, 209, 0.4),
+            0 0 20px rgba(200, 140, 74, 0.3);
     }
 
     50% {
         box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3),
-            0 0 30px rgba(255, 111, 97, 0.5);
+            0 8px 32px rgba(110, 75, 44, 0.3),
+            inset 0 1px 0 rgba(241, 231, 209, 0.5),
+            0 0 30px rgba(217, 123, 47, 0.5);
     }
 }
 
@@ -574,13 +599,13 @@ $accent-blue: rgba(162, 210, 255, 0.8);
     100% {
         opacity: 1;
         transform: scale(1);
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+        filter: drop-shadow(0 0 5px rgba(200, 140, 74, 0.4));
     }
 
     50% {
         opacity: 0.8;
         transform: scale(1.05);
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        filter: drop-shadow(0 0 10px rgba(217, 123, 47, 0.6));
     }
 }
 
@@ -792,5 +817,103 @@ $accent-blue: rgba(162, 210, 255, 0.8);
 .birthday-footer:hover {
     backdrop-filter: blur(25px) saturate(200%);
     -webkit-backdrop-filter: blur(25px) saturate(200%);
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(200, 140, 74, 0.6);
+    background: linear-gradient(135deg, $glass-cream-hover, $glass-accent);
+}
+
+// Enhanced mobile responsiveness with warm palette
+@media (max-width: 768px) {
+    .birthday-app {
+        // Fix for mobile background image
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center center;
+        min-height: 100vh;
+
+        // Alternative approach for better mobile support
+        &::before {
+            background: rgba(110, 75, 44, 0.4); // Warm overlay for mobile
+        }
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .birthday-header {
+        padding: 40px 20px;
+        @include glass-morphism(15px, 0.25); // Stronger glass effect for mobile
+    }
+
+    .main-title {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .age-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .message-card p {
+        font-size: 1.1rem;
+    }
+
+    .birthday-emojis {
+        font-size: 2rem;
+        letter-spacing: 5px;
+    }
+
+    // Enhanced mobile glass effects with warm palette
+    .age-card,
+    .message-card,
+    .photo-placeholder,
+    .wishes-card,
+    .birthday-footer {
+        @include glass-morphism(12px, 0.22);
+        border-color: rgba(200, 140, 74, 0.4);
+    }
+
+    .main-age {
+        @include glass-morphism-accent(20px);
+    }
+}
+
+// Additional mobile-specific fixes with warm colors
+@media (max-width: 480px) {
+    .birthday-app {
+        // Ensure background covers entire screen on small devices
+        background-size: cover;
+        background-position: center top;
+
+        &::before {
+            background: rgba(110, 75, 44, 0.5); // Stronger warm overlay for very small screens
+        }
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .age-card {
+        padding: 20px 15px;
+    }
+
+    .message-card {
+        padding: 20px;
+
+        p {
+            font-size: 1rem;
+        }
+    }
 }
