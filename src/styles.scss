@@ -1,6 +1,236 @@
-/* You can add global styles to this file, and also import other style files */
+// Global Styles for Modern Birthday App
+// Add this to your src/styles.scss or src/styles.css
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    background: #f5f5f5;
+}
+
+// Custom Snackbar Styles
+.success-snackbar {
+    background: linear-gradient(45deg, #4caf50, #81c784) !important;
+    color: white !important;
+
+    .mat-mdc-snack-bar-label {
+        color: white !important;
+    }
+
+    .mat-mdc-button {
+        color: white !important;
+    }
+}
+
+.error-snackbar {
+    background: linear-gradient(45deg, #f44336, #ef5350) !important;
+    color: white !important;
+
+    .mat-mdc-snack-bar-label {
+        color: white !important;
+    }
+
+    .mat-mdc-button {
+        color: white !important;
+    }
+}
+
+.celebration-snackbar {
+    background: linear-gradient(45deg, #ff6b9d, #c44569) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+
+    .mat-mdc-snack-bar-label {
+        color: white !important;
+        font-weight: 600 !important;
+    }
+
+    .mat-mdc-button {
+        color: white !important;
+        font-weight: 700 !important;
+    }
+}
+
+// Celebration Burst Animation
+@keyframes celebrationBurst {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(calc(-50% + var(--random-x)),
+                calc(-50% + var(--random-y))) scale(1) rotate(var(--random-rotation));
+        opacity: 0;
+    }
+}
+
+// Custom Material Design Overrides
+.mat-mdc-card {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+
+    &:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+}
+
+.mat-mdc-fab {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+
+    &:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+}
+
+.mat-mdc-raised-button {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+
+    &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+.mat-mdc-chip {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+
+    &:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    }
+}
+
+// Smooth scrolling
+html {
+    scroll-behavior: smooth;
+}
+
+// Custom scrollbar for webkit browsers
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff6b9d, #c44569);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #c44569, #ff6b9d);
+}
+
+// Focus styles for accessibility
+.mat-mdc-button:focus,
+.mat-mdc-fab:focus,
+.mat-mdc-card:focus {
+    outline: 2px solid #ff6b9d;
+    outline-offset: 2px;
+}
+
+// Loading state (optional)
+.loading {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent);
+        animation: shimmer 1.5s infinite;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+// Print styles (optional)
+@media print {
+
+    .floating-action-btn,
+    .particles-background {
+        display: none !important;
+    }
+
+    .modern-birthday-app {
+        background: white !important;
+    }
+
+    .mat-mdc-card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+
+// High contrast mode support (accessibility)
+@media (prefers-contrast: high) {
+    :root {
+        --primary-gradient: linear-gradient(135deg, #000080 0%, #800080 100%);
+        --secondary-gradient: linear-gradient(135deg, #800080 0%, #000080 100%);
+        --text-primary: #000000;
+        --text-secondary: #333333;
+    }
+
+    .mat-mdc-card {
+        border: 2px solid #000000 !important;
+    }
+}
+
+// Reduced motion support (accessibility)
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .particles-background,
+    .particle {
+        display: none !important;
+    }
+}
+
+// Dark mode support (optional future enhancement)
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+        --glass-bg: rgba(0, 0, 0, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
 }

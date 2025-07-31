@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define custom birthday palette
+$birthday-primary: mat.define-palette(mat.$pink-palette, 500, 300, 800);
+$birthday-accent: mat.define-palette(mat.$purple-palette, 400, 200, 600);
+$birthday-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme
+$birthday-theme: mat.define-light-theme((color: (primary: $birthday-primary,
+                accent: $birthday-accent,
+                warn: $birthday-warn,
+            )));
+
+// Include theme styles for all components
+@include mat.all-component-themes($birthday-theme);
+
+// Custom CSS variables for consistent theming
+:root {
+    --primary-color: #e91e63;
+    --accent-color: #9c27b0;
+    --gradient-primary: linear-gradient(135deg, #e91e63, #9c27b0);
+    --gradient-secondary: linear-gradient(135deg, #ff4081, #7b1fa2);
+    --gradient-celebration: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+}
