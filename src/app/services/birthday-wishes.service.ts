@@ -56,24 +56,57 @@ export class BirthdayWishesService {
 
   // Check if today is birthday and send automatic wishes
   checkAndSendAutomaticWishes(): void {
-    const today = new Date();
-    const birthdayDate = new Date('1998-08-01');
+    const now = new Date();
+    const birthdayDate = new Date(now.getFullYear(), 7, 1); // August is 7 (0-based)
 
-    const isBirthday =
-      today.getMonth() === birthdayDate.getMonth() && today.getDate() === birthdayDate.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const alreadySent = localStorage.getItem('birthdayWishSent');
 
-    if (isBirthday) {
-      const currentAge = today.getFullYear() - birthdayDate.getFullYear();
+    const key = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${hours}-${minutes}`;
 
-      this.sendBirthdayWishes('moulyamoulya20@gmail.com', 'Moulya', currentAge).subscribe({
-        next: response => {
-          console.log('🎉 Automatic birthday wishes sent successfully!', response);
+    if (alreadySent === key) {
+      return; // Prevent multiple sends at same time
+    }
+
+    // 11:59 PM (night before)
+    const is1159PM = hours === 23 && minutes === 59 && now.getDate() === birthdayDate.getDate() - 1;
+
+    // 12:00 AM (birthday)
+    const isMidnight =
+      hours === 0 &&
+      minutes === 0 &&
+      now.getDate() === birthdayDate.getDate() &&
+      now.getMonth() === birthdayDate.getMonth();
+
+    if (is1159PM) {
+      this.sendBirthdayWishes(
+        'moulyamoulya20@gmail.com',
+        'Moulya',
+        birthdayDate.getFullYear() - 1998
+      ).subscribe({
+        next: () => console.log('🎉 First 11:59PM wish sent.'),
+      });
+      this.sendBirthdayWishes(
+        'moulyamoulya20@gmail.com',
+        'Moulya',
+        birthdayDate.getFullYear() - 1998
+      ).subscribe({
+        next: () => console.log('🎉 Second 11:59PM wish sent.'),
+      });
+      localStorage.setItem('birthdayWishSent', key);
+    } else if (isMidnight) {
+      this.sendBirthdayWishes(
+        'moulyamoulya20@gmail.com',
+        'Moulya',
+        birthdayDate.getFullYear() - 1998
+      ).subscribe({
+        next: () => {
+          console.log('🎉 12:00AM Birthday wish sent.');
           this.showBirthdayNotification();
         },
-        error: error => {
-          console.error('Failed to send automatic birthday wishes:', error);
-        },
       });
+      localStorage.setItem('birthdayWishSent', key);
     }
   }
 

@@ -36,11 +36,8 @@
     <section class="messages-section">
       <h2 class="section-title">🎭 Getting Older & Wiser!</h2>
       <div class="message-cards">
-        <div
-          class="message-card"
-          *ngFor="let message of ageMessages; let i = index"
-          [style.animation-delay]="i * 0.3 + 's'"
-        >
+        <div class="message-card" *ngFor="let message of ageMessages; let i = index"
+          [style.animation-delay]="i * 0.3 + 's'">
           <p>{{ message }}</p>
         </div>
       </div>
@@ -50,16 +47,10 @@
     <section class="gallery-section">
       <h2 class="section-title">📸 Beautiful Soul</h2>
       <div class="photo-grid">
-        <div
-          class="photo-placeholder"
-          *ngFor="let photo of [1, 2, 3, 4]; let i = index"
-          [style.animation-delay]="i * 0.2 + 's'"
-        >
-          <img
-            [src]="'assets/images/photo' + (i + 1) + '.jpeg'"
-            [alt]="'Moulya Memory ' + (i + 1)"
-            class="photo-image"
-          />
+        <div class="photo-placeholder" *ngFor="let photo of [1, 2, 3, 4]; let i = index"
+          [style.animation-delay]="i * 0.2 + 's'">
+          <img [src]="'assets/images/photo' + (i + 1) + '.jpeg'" [alt]="'Moulya Memory ' + (i + 1)"
+            class="photo-image" />
         </div>
       </div>
     </section>
@@ -86,15 +77,25 @@
     </section>
 
     <!-- Birthday Wishes Form -->
-    <section class="wishes-section">
-      <h2 class="section-title">💌 Send Birthday Love</h2>
-      <div class="wishes-card">
-        <p>Automatic birthday wishes are sent every August 1st! 💝</p>
-        <div class="wish-status">
-          <span class="status-icon">✅</span>
-        </div>
+    <form action="https://api.web3forms.com/submit" method="POST" class="birthday-form">
+      <input type="hidden" name="access_key" value="9d8e78e3-50d1-49d3-bd60-3a7f167564ae" />
+      <input type="hidden" name="from_name" value="Birthday Surprise Bot" />
+      <input type="hidden" name="subject" value="🎉 Happy Birthday Moulya!" />
+
+      <div class="form-group">
+        <input type="email" name="email" required placeholder="Your Email" />
       </div>
-    </section>
+
+      <div class="form-group">
+        <textarea name="message" required placeholder="Write your heartfelt wish..." rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="send-btn">
+        💌 Send Birthday Wish
+      </button>
+    </form>
+
+
 
     <!-- Footer -->
     <footer class="birthday-footer">
