@@ -1,0 +1,105 @@
+<!-- app.component.html -->
+<div class="birthday-app">
+  <div class="stars"></div>
+
+  <div class="container">
+    <!-- Header Section -->
+    <header class="birthday-header">
+      <h1 class="main-title">🎉 Happy Birthday Moulya! 🎂</h1>
+      <div class="birthday-date">August 1st Special Day</div>
+    </header>
+
+    <!-- Age Display Section -->
+    <section class="age-section">
+      <div class="age-card main-age">
+        <div class="age-number">{{ currentAge }}</div>
+        <div class="age-label">Years Young!</div>
+      </div>
+
+      <div class="age-stats">
+        <div class="age-card">
+          <div class="stat-number">{{ getAgeInDays() | number }}</div>
+          <div class="stat-label">Days on Earth</div>
+        </div>
+        <div class="age-card">
+          <div class="stat-number">{{ getAgeInHours() | number }}</div>
+          <div class="stat-label">Hours of Awesomeness</div>
+        </div>
+        <div class="age-card">
+          <div class="stat-number">{{ getAgeInMinutes() | number }}</div>
+          <div class="stat-label">Minutes of Magic</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fun Messages Section -->
+    <section class="messages-section">
+      <h2 class="section-title">🎭 Getting Older & Wiser!</h2>
+      <div class="message-cards">
+        <div
+          class="message-card"
+          *ngFor="let message of ageMessages; let i = index"
+          [style.animation-delay]="i * 0.3 + 's'"
+        >
+          <p>{{ message }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="gallery-section">
+      <h2 class="section-title">📸 Beautiful Soul</h2>
+      <div class="photo-grid">
+        <div
+          class="photo-placeholder"
+          *ngFor="let photo of [1, 2, 3, 4]; let i = index"
+          [style.animation-delay]="i * 0.2 + 's'"
+        >
+          <img
+            [src]="'assets/images/photo' + (i + 1) + '.jpeg'"
+            [alt]="'Moulya Memory ' + (i + 1)"
+            class="photo-image"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="countdown-section" *ngIf="daysUntilBirthday > 0">
+      <h2 class="section-title">⏰ Next Birthday Countdown</h2>
+      <div class="countdown-card">
+        <div class="countdown-number">{{ daysUntilBirthday }}</div>
+        <div class="countdown-label">Days Until Next Celebration!</div>
+      </div>
+    </section>
+
+    <!-- Today's Birthday Section -->
+    <section class="today-birthday" *ngIf="daysUntilBirthday === 0">
+      <h2 class="section-title">🎊 IT'S YOUR SPECIAL DAY! 🎊</h2>
+      <div class="celebration-card">
+        <div class="celebration-content">
+          <h3>Happy Birthday, Amazing Moulya! 🌟</h3>
+          <p>Wishing you a year filled with happiness, success, and all your heart desires!</p>
+          <div class="birthday-emojis">🎂🎈🎁🌸✨🎉🦋🌺</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Birthday Wishes Form -->
+    <section class="wishes-section">
+      <h2 class="section-title">💌 Send Birthday Love</h2>
+      <div class="wishes-card">
+        <p>Automatic birthday wishes are sent every August 1st! 💝</p>
+        <div class="wish-status">
+          <span class="status-icon">✅</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="birthday-footer">
+      <p>Made with 💖 for the most amazing 💖</p>
+      <div class="footer-decorations">🌟 ✨ 🌸 ✨ 🌟</div>
+    </footer>
+  </div>
+</div>
