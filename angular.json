@@ -48,7 +48,8 @@
                   "maximumError": "9kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/moulya-birthday/"
             },
             "development": {
               "optimization": false,

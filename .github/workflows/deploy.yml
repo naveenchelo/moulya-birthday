@@ -2,30 +2,32 @@ name: 🚀 Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # Trigger only when pushing to 'release' branch
+    branches: [main]  # Trigger only when pushing to main branch
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: 🏁 Start Deployment Workflow
-        run: echo "🚀 Starting GitHub Pages Deployment..."
+      - name: 🏁 Start Build Process
+        run: echo "🚀 Starting Angular build for GitHub Pages..."
 
       - name: 🛎️ Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v4
 
       - name: 🟩 Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
+          cache: 'npm'
 
       - name: 📦 Install Dependencies
         run: |
@@ -33,29 +35,39 @@ jobs:
           npm ci
           echo "::endgroup::"
 
-      - name: 🛠️ Build Angular App (Production)
+      - name: 🛠️ Build Angular App
         run: |
-          echo "::group::Building Angular App"
-          npm run build -- --configuration production --base-href="/moulya-birthday/"
-          ls -la ./dist/
+          echo "::group::Building Angular App for GitHub Pages"
+          npm run build -- --configuration production
+          
+          # Create a copy of index.html as 404.html for client-side routing
+          cp dist/moulya-birthday/browser/index.html dist/moulya-birthday/browser/404.html
+          
+          # List contents to verify build
+          echo "Built files:"
+          ls -la dist/moulya-birthday/browser/
           echo "::endgroup::"
 
-      - name: 🌍 Install angular-cli-ghpages
-        run: |
-          npm install -g angular-cli-ghpages
+      - name: 📋 Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: 📝 Configure Git Identity
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+      - name: 📤 Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './dist/moulya-birthday/browser'
 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: 🚚 Deploy to GitHub Pages
-        run: |
-          echo "::group::Deploying to GitHub Pages"
-          npx angular-cli-ghpages --dir=dist/moulya-birthday --no-silent
-          echo "::endgroup::"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v2
 
-      - name: ✅ Done!
-        run: echo "🎉 Moulya's birthday surprise is live on GitHub Pages!"
+      - name: ✅ Deployment Complete
+        run: |
+          echo "🎉 Moulya's birthday surprise is now live!"
+          echo "🌐 URL: ${{ steps.deployment.outputs.page_url }}"
