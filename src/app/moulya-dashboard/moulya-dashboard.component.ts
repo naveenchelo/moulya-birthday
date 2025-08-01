@@ -91,8 +91,8 @@ export class MoulyaDashboardComponent implements OnInit {
     },
     {
       image: 'assets/images/photo4.jpeg',
-      title: 'Timeless Beauty',
-      description: 'A soul so beautiful that it reflects in every photograph, every memory.',
+      title: 'Silent Spark',
+      description: 'A quiet moment, a golden circle—speaking volumes only hearts can hear.',
       quote: 'True beauty radiates from within, just like hers',
     },
   ];
