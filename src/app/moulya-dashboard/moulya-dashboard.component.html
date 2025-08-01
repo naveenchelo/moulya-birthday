@@ -1,106 +1,212 @@
-<!-- app.component.html -->
-<div class="birthday-app">
-  <div class="stars"></div>
-
-  <div class="container">
-    <!-- Header Section -->
-    <header class="birthday-header">
-      <h1 class="main-title">🎉 Happy Birthday Moulya! 🎂</h1>
-      <div class="birthday-date">August 1st Special Day</div>
-    </header>
-
-    <!-- Age Display Section -->
-    <section class="age-section">
-      <div class="age-card main-age">
-        <div class="age-number">{{ currentAge }}</div>
-        <div class="age-label">Years Young!</div>
-      </div>
-
-      <div class="age-stats">
-        <div class="age-card">
-          <div class="stat-number">{{ getAgeInDays() | number }}</div>
-          <div class="stat-label">Days on Earth</div>
+<!-- moulya-dashboard.component.html -->
+<div class="elegant-birthday-app">
+  <!-- Header Section -->
+  <header class="elegant-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="symbolic-birds">
+          <svg class="bird-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2c1.1 0 2 .9 2 2 0 .74-.4 1.38-1 1.73v.77l5 2v.5l-5-2v1.5c.6.35 1 .99 1 1.73 0 1.1-.9 2-2 2s-2-.9-2-2c0-.74.4-1.38 1-1.73V6.5l-5 2v-.5l5-2v-.77c-.6-.35-1-.99-1-1.73 0-1.1.9-2 2-2z" />
+          </svg>
+          <svg class="bird-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2c1.1 0 2 .9 2 2 0 .74-.4 1.38-1 1.73v.77l5 2v.5l-5-2v1.5c.6.35 1 .99 1 1.73 0 1.1-.9 2-2 2s-2-.9-2-2c0-.74.4-1.38 1-1.73V6.5l-5 2v-.5l5-2v-.77c-.6-.35-1-.99-1-1.73 0-1.1.9-2 2-2z" />
+          </svg>
         </div>
-        <div class="age-card">
-          <div class="stat-number">{{ getAgeInHours() | number }}</div>
-          <div class="stat-label">Hours of Awesomeness</div>
-        </div>
-        <div class="age-card">
-          <div class="stat-number">{{ getAgeInMinutes() | number }}</div>
-          <div class="stat-label">Minutes of Magic</div>
-        </div>
+        <h1 class="elegant-title">A Day to Celebrate You, Moulya</h1>
+        <div class="decorative-line"></div>
+        <p class="date-display">August 1st, {{ currentYear }}</p>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- Fun Messages Section -->
-    <section class="messages-section">
-      <h2 class="section-title">🎭 Getting Older & Wiser!</h2>
-      <div class="message-cards">
-        <div class="message-card" *ngFor="let message of ageMessages; let i = index"
-          [style.animation-delay]="i * 0.3 + 's'">
-          <p>{{ message }}</p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2 class="hero-title">Happy Birthday Moulya</h2>
+          <p class="hero-message">
+            ಜೀವನದಲ್ಲಿ ಸಂತೋಷ ಮತ್ತು ಯಶಸ್ಸು ನಿಮ್ಮೊಂದಿಗೆ ಇರಲಿ<br />
+            <span class="telugu-text">జీవితంలో ఆనందం మరియు విజయం మీతో ఉండనీ</span>
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">{{ currentAge }}</span>
+              <span class="stat-label">Years of Grace</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">{{ getAgeInDays() | number }}</span>
+              <span class="stat-label">Days of Joy</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="gallery-section">
-      <h2 class="section-title">📸 Beautiful Soul</h2>
-      <div class="photo-grid">
-        <div class="photo-placeholder" *ngFor="let photo of [1, 2, 3, 4]; let i = index"
-          [style.animation-delay]="i * 0.2 + 's'">
-          <img [src]="'assets/images/photo' + (i + 1) + '.jpeg'" [alt]="'Moulya Memory ' + (i + 1)"
-            class="photo-image" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Countdown Section -->
-    <section class="countdown-section" *ngIf="daysUntilBirthday > 0">
-      <h2 class="section-title">⏰ Next Birthday Countdown</h2>
-      <div class="countdown-card">
-        <div class="countdown-number">{{ daysUntilBirthday }}</div>
-        <div class="countdown-label">Days Until Next Celebration!</div>
-      </div>
-    </section>
-
-    <!-- Today's Birthday Section -->
-    <section class="today-birthday" *ngIf="daysUntilBirthday === 0">
-      <h2 class="section-title">🎊 IT'S YOUR SPECIAL DAY! 🎊</h2>
-      <div class="celebration-card">
-        <div class="celebration-content">
-          <h3>Happy Birthday, Amazing Moulya! 🌟</h3>
-          <p>Wishing you a year filled with happiness, success, and all your heart desires!</p>
-          <div class="birthday-emojis">🎂🎈🎁🌸✨🎉🦋🌺</div>
+        <div class="hero-image">
+          <div class="image-frame">
+            <img src="assets/images/photo1.jpeg" alt="Moulya" class="hero-photo" />
+            <div class="twin-moons">
+              <div class="moon moon-1"></div>
+              <div class="moon moon-2"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Birthday Wishes Form -->
-    <form action="https://api.web3forms.com/submit" method="POST" class="birthday-form">
-      <input type="hidden" name="access_key" value="9d8e78e3-50d1-49d3-bd60-3a7f167564ae" />
-      <input type="hidden" name="from_name" value="Birthday Surprise Bot" />
-      <input type="hidden" name="subject" value="🎉 Happy Birthday Moulya!" />
-
-      <div class="form-group">
-        <input type="email" name="email" required placeholder="Your Email" />
+  <!-- About Her Journey -->
+  <section class="about-section">
+    <div class="container">
+      <h2 class="section-title">Her Beautiful Journey</h2>
+      <div class="journey-timeline">
+        <div class="timeline-item" *ngFor="let milestone of journeyMilestones; let i = index"
+          [class.active]="i <= currentMilestone">
+          <div class="timeline-marker">
+            <div class="marker-icon">{{ milestone.icon }}</div>
+          </div>
+          <div class="timeline-content">
+            <h3 class="milestone-title">{{ milestone.title }}</h3>
+            <p class="milestone-description">{{ milestone.description }}</p>
+            <span class="milestone-year">{{ milestone.year }}</span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="form-group">
-        <textarea name="message" required placeholder="Write your heartfelt wish..." rows="4"></textarea>
+  <!-- Memories Section -->
+  <section class="memories-section">
+    <div class="container">
+      <h2 class="section-title">Cherished Moments</h2>
+      <div class="memories-grid">
+        <div class="memory-card" *ngFor="let memory of memories; let i = index" [style.animation-delay]="i * 0.2 + 's'">
+          <div class="memory-image">
+            <img [src]="memory.image" [alt]="memory.title" />
+            <div class="memory-overlay">
+              <div class="memory-quote">"{{ memory.quote }}"</div>
+            </div>
+          </div>
+          <div class="memory-content">
+            <h3 class="memory-title">{{ memory.title }}</h3>
+            <p class="memory-description">{{ memory.description }}</p>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <button type="submit" class="send-btn">
-        💌 Send Birthday Wish
-      </button>
-    </form>
+  <!-- Birthday Wish Section -->
+  <section class="wish-section">
+    <div class="container">
+      <div class="wish-content">
+        <div class="wish-header">
+          <div class="twin-stars">
+            <div class="star star-1">✦</div>
+            <div class="star star-2">✦</div>
+          </div>
+          <h2 class="wish-title">A Special Message</h2>
+          <p class="wish-subtitle">From someone who cherishes you</p>
+        </div>
 
+        <div class="wish-message">
+          <div class="message-card">
+            <p class="main-message">
+              Dear Moulya, on this beautiful day that marks another year of your incredible journey,
+              I want you to know how much joy and inspiration you bring to everyone around you. Your
+              grace, strength, and kind heart make the world a brighter place.
+            </p>
+            <p class="secondary-message">
+              May this new year of your life be filled with adventures that make you smile,
+              achievements that make you proud, and moments that warm your heart. You deserve all
+              the happiness in the world.
+            </p>
+            <div class="signature">
+              <p>With warmest wishes and endless admiration,</p>
+              <p class="signature-name">Someone who believes in your dreams ✨</p>
+            </div>
+          </div>
+        </div>
 
+        <!-- Interactive Wish Form -->
+        <div class="wish-form-container">
+          <h3 class="form-title">Send Your Birthday Wishes</h3>
+          <form class="elegant-form" (ngSubmit)="onSubmitWish($event)">
+            <div class="form-group">
+              <input type="text" name="sender_name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" name="sender_email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <textarea name="birthday_message" placeholder="Your heartfelt birthday message..." rows="4"
+                required></textarea>
+            </div>
+            <button type="submit" class="wish-submit-btn">
+              <span>Send Birthday Wishes</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="birthday-footer">
-      <p>Made with 💖 for the most amazing 💖</p>
-      <div class="footer-decorations">🌟 ✨ 🌸 ✨ 🌟</div>
-    </footer>
+  <!-- Footer -->
+  <footer class="elegant-footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="gratitude-message">Thank you for being the wonderful person you are, Moulya</p>
+        <div class="footer-decorations">
+          <span class="decoration-item">🌸</span>
+          <span class="decoration-item">✨</span>
+          <span class="decoration-item">🦋</span>
+          <span class="decoration-item">✨</span>
+          <span class="decoration-item">🌸</span>
+        </div>
+        <p class="footer-date">August 1st, {{ currentYear }} • Made with 💝</p>
+
+        <!-- Hidden Gift Animation Trigger -->
+        <button class="gift-surprise-btn" (click)="triggerGiftAnimation()">
+          <span>✨ A Little Surprise ✨</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Gift Animation Overlay -->
+  <div class="gift-overlay" [class.active]="showGiftAnimation" (click)="closeGiftAnimation()">
+    <div class="gift-animation">
+      <div class="gift-box" [class.open]="giftOpened">
+        <div class="gift-lid"></div>
+        <div class="gift-base"></div>
+        <div class="gift-ribbon-h"></div>
+        <div class="gift-ribbon-v"></div>
+      </div>
+      <div class="gift-message" [class.visible]="giftOpened">
+        <h3>Happy Birthday, Beautiful Soul! 🎂</h3>
+        <p>May all your dreams take flight like butterflies in spring 🦋</p>
+        <div class="floating-elements">
+          <div class="floating-item">🌸</div>
+          <div class="floating-item">✨</div>
+          <div class="floating-item">🦋</div>
+          <div class="floating-item">💝</div>
+          <div class="floating-item">🌟</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Elements -->
+  <div class="bg-elements">
+    <div class="floating-petals">
+      <div class="petal" *ngFor="let petal of petals" [style.left.%]="petal.x" [style.animation-delay]="petal.delay">
+        🌸
+      </div>
+    </div>
   </div>
 </div>
