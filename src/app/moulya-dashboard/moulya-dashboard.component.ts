@@ -1,120 +1,114 @@
 import { Component, OnInit } from '@angular/core';
 import { BirthdayWishesService } from '../services/birthday-wishes.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
-interface Particle {
+interface JourneyMilestone {
+  icon: string;
+  title: string;
+  description: string;
+  year: string;
+}
+
+interface Memory {
+  image: string;
+  title: string;
+  description: string;
+  quote: string;
+}
+
+interface Petal {
   x: number;
-  y: number;
-  delay: number;
+  delay: string;
 }
 
 @Component({
   selector: 'app-moulya-dashboard',
   templateUrl: './moulya-dashboard.component.html',
-  styleUrls: ['./moulya-dashboard.component.scss'],
-  animations: [
-    trigger('slideInDown', [
-      transition(':enter', [
-        style({ transform: 'translateY(-100px)', opacity: 0 }),
-        animate('0.6s ease-out', style({ transform: 'translateY(0)', opacity: 1 })),
-      ]),
-    ]),
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ transform: 'translateY(50px)', opacity: 0 }),
-        animate('0.6s ease-out', style({ transform: 'translateY(0)', opacity: 1 })),
-      ]),
-    ]),
-    trigger('fadeInLeft', [
-      transition(':enter', [
-        style({ transform: 'translateX(-50px)', opacity: 0 }),
-        animate('0.6s ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
-      ]),
-    ]),
-    trigger('bounceIn', [
-      transition(':enter', [
-        animate(
-          '0.8s ease-out',
-          keyframes([
-            style({ opacity: 0, transform: 'scale(0.3)', offset: 0 }),
-            style({ opacity: 1, transform: 'scale(1.05)', offset: 0.5 }),
-            style({ transform: 'scale(0.9)', offset: 0.7 }),
-            style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
-          ])
-        ),
-      ]),
-    ]),
-    trigger('slideInStagger', [
-      transition(':enter', [
-        style({ transform: 'translateX(100px)', opacity: 0 }),
-        animate('0.5s ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
-      ]),
-    ]),
-    trigger('pulse', [
-      transition(':enter', [
-        animate(
-          '2s ease-in-out',
-          keyframes([
-            style({ transform: 'scale(1)', offset: 0 }),
-            style({ transform: 'scale(1.02)', offset: 0.5 }),
-            style({ transform: 'scale(1)', offset: 1.0 }),
-          ])
-        ),
-      ]),
-    ]),
-    trigger('celebration', [
-      transition(':enter', [
-        animate(
-          '1s ease-out',
-          keyframes([
-            style({ transform: 'scale(0.8) rotate(-5deg)', opacity: 0, offset: 0 }),
-            style({ transform: 'scale(1.1) rotate(2deg)', opacity: 1, offset: 0.6 }),
-            style({ transform: 'scale(1) rotate(0deg)', opacity: 1, offset: 1.0 }),
-          ])
-        ),
-      ]),
-    ]),
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('0.6s ease-out', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
+  styleUrl: './moulya-dashboard.component.scss',
 })
 export class MoulyaDashboardComponent implements OnInit {
-  title = 'moulya-birthday';
+  title = 'moulya-birthday-elegant';
 
-  // Moulya's birthday details
+  // Birthday details
   birthdayDate = new Date('1998-08-01');
   currentAge = 0;
+  currentYear = new Date().getFullYear();
   daysUntilBirthday = 0;
-  ageMessages: string[] = [];
-  particles: Particle[] = [];
 
-  // Fun age-related messages
-  funnyAgeMessages = [
-    "Just be yourself, always — because that's who we all admire and love the most. 💖",
-    "I'll always be there for you — in every chapter, every storm, and every celebration.",
-    "Congratulations! You've unlocked the 'back pain for no reason' achievement! 🏆",
-    'Be strong and stay strong, like Hanuman — fearless, resilient, and full of grace.',
-    "May your life be filled with blessings, joy, and endless success. I'll keep praying for your bright future and a heart full of peace.",
-    "You've reached the age where staying in is the new going out! 🏠",
+  // Timeline control
+  currentMilestone = 0;
+
+  // Gift animation states
+  showGiftAnimation = false;
+  giftOpened = false;
+
+  // Journey milestones data
+  journeyMilestones: JourneyMilestone[] = [
+    {
+      icon: '🌱',
+      title: 'Beautiful Beginning',
+      description: 'Born in Hassan, Karnataka - where her journey of grace and strength began.',
+      year: '1998',
+    },
+    {
+      icon: '🎓',
+      title: 'Academic Excellence',
+      description: 'Pursued her education with dedication and achieved remarkable milestones.',
+      year: '2016-2020',
+    },
+    {
+      icon: '💼',
+      title: 'Professional Growth',
+      description: 'Joined TCS and began her successful career in technology.',
+      year: '2020',
+    },
+    {
+      icon: '🌟',
+      title: 'Continuous Journey',
+      description: 'Growing stronger, wiser, and more beautiful with each passing day.',
+      year: 'Present',
+    },
   ];
 
-  constructor(
-    private birthdayWishesService: BirthdayWishesService,
-    private snackBar: MatSnackBar
-  ) {}
+  // Memories data
+  memories: Memory[] = [
+    {
+      image: 'assets/images/photo1.jpeg',
+      title: 'Radiant Smile',
+      description: 'Capturing moments of pure joy and happiness that light up every room.',
+      quote: 'Her smile is the sunshine that brightens the darkest days',
+    },
+    {
+      image: 'assets/images/photo2.jpeg',
+      title: 'Elegant Grace',
+      description: 'Every moment showcasing the natural elegance and poise that defines her.',
+      quote: 'Grace in every gesture, beauty in every moment',
+    },
+    {
+      image: 'assets/images/photo3.jpeg',
+      title: 'Joyful Moments',
+      description: 'Celebrating life with infectious laughter and unbounded happiness.',
+      quote: 'In her joy, we find our own reasons to celebrate',
+    },
+    {
+      image: 'assets/images/photo4.jpeg',
+      title: 'Timeless Beauty',
+      description: 'A soul so beautiful that it reflects in every photograph, every memory.',
+      quote: 'True beauty radiates from within, just like hers',
+    },
+  ];
+
+  // Floating petals data
+  petals: Petal[] = [];
+
+  constructor(private birthdayWishesService: BirthdayWishesService) {}
 
   ngOnInit() {
     this.calculateAge();
     this.calculateDaysUntilBirthday();
-    this.generateAgeMessages();
-    this.generateParticles();
+    this.initializeAnimations();
+    this.createFloatingPetals();
 
-    // Check if it's birthday today and send wishes
+    // Check for automatic birthday wishes
     this.birthdayWishesService.checkAndSendAutomaticWishes();
   }
 
@@ -157,111 +151,163 @@ export class MoulyaDashboardComponent implements OnInit {
     this.daysUntilBirthday = Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
-  generateAgeMessages() {
-    // Select random funny messages based on age
-    const numMessages = Math.min(3, this.funnyAgeMessages.length);
-    const shuffled = [...this.funnyAgeMessages].sort(() => 0.5 - Math.random());
-    this.ageMessages = shuffled.slice(0, numMessages);
-  }
-
-  generateParticles() {
-    this.particles = [];
-    for (let i = 0; i < 50; i++) {
-      this.particles.push({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        delay: Math.random() * 20,
-      });
-    }
-  }
-
-  sendBirthdayWishes() {
-    this.birthdayWishesService
-      .sendBirthdayWishes('moulyamoulya20@gmail.com', 'Moulya', this.currentAge)
-      .subscribe({
-        next: response => {
-          console.log('Birthday wishes sent successfully!', response);
-          this.snackBar.open('🎉 Birthday wishes sent successfully! 🎂', 'Close', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: ['success-snackbar'],
-          });
+  initializeAnimations() {
+    // Animate timeline milestones progressively
+    this.journeyMilestones.forEach((_, index) => {
+      setTimeout(
+        () => {
+          this.currentMilestone = index;
         },
-        error: error => {
-          console.error('Failed to send birthday wishes:', error);
-          this.snackBar.open(
-            'Sorry, failed to send birthday wishes. Please try again later.',
-            'Close',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['error-snackbar'],
-            }
-          );
-        },
-      });
-  }
-
-  triggerCelebration() {
-    // Create celebration effect
-    this.createCelebrationBurst();
-
-    // Show celebration message
-    this.snackBar.open('🎊 CELEBRATION TIME! 🎊', 'YAY!', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: ['celebration-snackbar'],
+        (index + 1) * 1000
+      );
     });
 
-    // Play celebration sound (if you want to add audio)
-    // this.playCelebrationSound();
-  }
-
-  private createCelebrationBurst() {
-    const colors = ['#ff6b9d', '#c44569', '#3742fa', '#2ed573', '#ffa502'];
-    const celebrationContainer = document.createElement('div');
-    celebrationContainer.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-    `;
-
-    for (let i = 0; i < 30; i++) {
-      const confetti = document.createElement('div');
-      confetti.style.cssText = `
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: ${colors[Math.floor(Math.random() * colors.length)]};
-        top: 50%;
-        left: 50%;
-        border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-        animation: celebrationBurst 2s ease-out forwards;
-        transform: translate(-50%, -50%);
-      `;
-
-      confetti.style.setProperty('--random-x', (Math.random() - 0.5) * 1000 + 'px');
-      confetti.style.setProperty('--random-y', (Math.random() - 0.5) * 1000 + 'px');
-      confetti.style.setProperty('--random-rotation', Math.random() * 720 + 'deg');
-
-      celebrationContainer.appendChild(confetti);
-    }
-
-    document.body.appendChild(celebrationContainer);
-
-    // Clean up after animation
+    // Animate memory cards with stagger
     setTimeout(() => {
-      document.body.removeChild(celebrationContainer);
+      const memoryCards = document.querySelectorAll('.memory-card');
+      memoryCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate');
+        }, index * 200);
+      });
     }, 2000);
   }
 
+  createFloatingPetals() {
+    // Create floating petals for background animation
+    for (let i = 0; i < 20; i++) {
+      this.petals.push({
+        x: Math.random() * 100,
+        delay: Math.random() * 15 + 's',
+      });
+    }
+  }
+
+  onSubmitWish(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const wishData = {
+      senderName: formData.get('sender_name') as string,
+      senderEmail: formData.get('sender_email') as string,
+      message: formData.get('birthday_message') as string,
+    };
+
+    // Send wish via the service
+    this.sendCustomBirthdayWish(wishData);
+
+    // Show success message
+    this.showSuccessNotification();
+
+    // Reset form
+    form.reset();
+  }
+
+  sendCustomBirthdayWish(wishData: any) {
+    const customMessage = `
+🎊 Birthday Wish from ${wishData.senderName} 🎊
+
+From: ${wishData.senderEmail}
+
+Personal Message:
+"${wishData.message}"
+
+---
+This wish was sent through Moulya's special birthday webpage.
+
+With love and warm wishes! 💝
+    `;
+
+    // Create form data for web3forms
+    const formData = new FormData();
+    formData.append('access_key', '9d8e78e3-50d1-49d3-bd60-3a7f167564ae');
+    formData.append('subject', `🎉 Birthday Wish from ${wishData.senderName} for Moulya! 🎂`);
+    formData.append('from_name', `${wishData.senderName} via Birthday Bot`);
+    formData.append('email', 'moulyamoulya20@gmail.com');
+    formData.append('message', customMessage);
+
+    // Send via HTTP
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Custom birthday wish sent successfully!');
+        }
+      })
+      .catch(error => {
+        console.error('Failed to send custom wish:', error);
+      });
+  }
+
+  showSuccessNotification() {
+    const notification = document.createElement('div');
+    notification.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #A569BD, #B08D57);
+        color: white;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(165, 105, 189, 0.4);
+        z-index: 9999;
+        max-width: 350px;
+        animation: slideInRight 0.6s ease-out;
+        backdrop-filter: blur(10px);
+      ">
+        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 12px; font-family: 'Playfair Display', serif;">
+          ✨ Wish Sent Successfully! ✨
+        </div>
+        <div style="font-size: 1rem; line-height: 1.4;">
+          Your heartfelt birthday message has been delivered to Moulya! 💝
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Add slide-in animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Remove notification after 6 seconds
+    setTimeout(() => {
+      notification.remove();
+      style.remove();
+    }, 6000);
+  }
+
+  triggerGiftAnimation() {
+    this.showGiftAnimation = true;
+
+    // Auto-open gift after a short delay
+    setTimeout(() => {
+      this.giftOpened = true;
+    }, 1000);
+  }
+
+  closeGiftAnimation() {
+    this.showGiftAnimation = false;
+    this.giftOpened = false;
+  }
+
+  // Utility methods for age calculations
   getAgeInDays(): number {
     const today = new Date();
     const timeDiff = today.getTime() - this.birthdayDate.getTime();
@@ -276,34 +322,67 @@ export class MoulyaDashboardComponent implements OnInit {
     return this.getAgeInHours() * 60;
   }
 
-  getAgeProgress(): number {
-    // Calculate progress through current year of life (0-100)
-    const today = new Date();
-    const lastBirthday = new Date(
-      today.getFullYear(),
-      this.birthdayDate.getMonth(),
-      this.birthdayDate.getDate()
-    );
-
-    if (lastBirthday > today) {
-      lastBirthday.setFullYear(today.getFullYear() - 1);
-    }
-
-    const nextBirthday = new Date(
-      lastBirthday.getFullYear() + 1,
-      this.birthdayDate.getMonth(),
-      this.birthdayDate.getDate()
-    );
-    const totalYearMs = nextBirthday.getTime() - lastBirthday.getTime();
-    const elapsedMs = today.getTime() - lastBirthday.getTime();
-
-    return Math.min(100, Math.max(0, (elapsedMs / totalYearMs) * 100));
+  // Method to manually trigger milestone animations
+  triggerMilestoneAnimation(index: number) {
+    this.currentMilestone = Math.max(this.currentMilestone, index);
   }
 
-  getBirthdayProgress(): number {
-    // Calculate progress towards next birthday (0-100)
-    const totalDaysInYear = 365;
-    const daysCompleted = totalDaysInYear - this.daysUntilBirthday;
-    return Math.min(100, Math.max(0, (daysCompleted / totalDaysInYear) * 100));
+  // Method to check if it's Moulya's birthday today
+  isBirthdayToday(): boolean {
+    const today = new Date();
+    return (
+      today.getMonth() === this.birthdayDate.getMonth() &&
+      today.getDate() === this.birthdayDate.getDate()
+    );
+  }
+
+  // Get special birthday message based on age
+  getSpecialAgeMessage(): string {
+    const messages = [
+      `At ${this.currentAge}, you're not just growing older, you're growing more magnificent! ✨`,
+      `${this.currentAge} years of spreading joy and inspiring everyone around you! 🌟`,
+      `Celebrating ${this.currentAge} years of your beautiful soul and radiant spirit! 💝`,
+      `${this.currentAge} candles for ${this.currentAge} reasons why you're absolutely wonderful! 🕯️`,
+    ];
+
+    return messages[this.currentAge % messages.length];
+  }
+
+  // Method to create sparkle effect on click
+  createSparkleEffect(event: MouseEvent) {
+    const sparkle = document.createElement('div');
+    sparkle.innerHTML = '✨';
+    sparkle.style.cssText = `
+      position: fixed;
+      left: ${event.clientX}px;
+      top: ${event.clientY}px;
+      font-size: 1.5rem;
+      pointer-events: none;
+      z-index: 9999;
+      animation: sparkle-fade 1s ease-out forwards;
+    `;
+
+    // Add sparkle animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes sparkle-fade {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5) rotate(180deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(sparkle);
+
+    // Clean up
+    setTimeout(() => {
+      sparkle.remove();
+      style.remove();
+    }, 1000);
   }
 }
